@@ -63,6 +63,13 @@
 
         var myRevenueMessage = document.getElementById("revenue");
 
+        var drinksOrdered = [];
+
+        var espressoButton = document.getElementById("espresso");
+        var latteButton = document.getElementById("latte");
+        var hotChocolateButton = document.getElementById("hot-chocolate");
+
+
         // myImage.setAttribute("src","static/coffee_beans.jpg");
 
         function changeToCoffeeMugImage() {
@@ -75,15 +82,38 @@
         }
         changeToCoffeeBeansImage()
 
-        function makeCoffee(evt) {
+        function   revenue(drinksOrdered) {
+            var total = 0;
+            for (var i = 0; i < drinksOrdered.length; i++) {
+                total = total + prices[drinksOrdered[i]]; 
+            return total;
 
+            };
+        }
+
+        function makeCoffee(drinkType) {
+            drinksOrdered.push(drinkType);
+            console.log(drinksOrdered);
             myImage.setAttribute("src", "static/coffee_machine.jpg");        
             setTimeout(changeToCoffeeMugImage, 1000);
             setTimeout(changeToCoffeeBeansImage, 1500);
-
-
+            runningTotal = revenue(drinksOrdered);     
+            myRevenueMessage.innerText = "Your total is " + runningTotal;
         }
-        myImage.addEventListener("click", makeCoffee);
+
+
+        
+
+      
+        
+        myImage.addEventListener("click", function() { return makeCoffee("brew");});
+        espressoButton.addEventListener("click", function() { return makeCoffee("espresso");});
+        latteButton.addEventListener("click", function() { return makeCoffee("latte");});
+        hotChocolateButton.addEventListener("click", function() { return makeCoffee("hot chocolate");});
+
+        // myImage.addEventListener("click", makeCoffee("brew");});
+
+
 
        
 
